@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">   
+
+    <h:head>
+        <title>Treinos</title>
+    </h:head>
+    <f:event type="preRenderView" listener="#{trainingBean.preRenderView()}" />
+    <h:body>
+
+        <h:outputStylesheet library="css" name="style.css"/>
+        <h:form>
+            <p:menubar>
+                <p:menuitem>
+                    <h:link outcome="index">
+                        <h:graphicImage id="logotipo" url="/resources/image/logo.png"/> 
+                    </h:link>
+                </p:menuitem>
+                <p:menuitem value="Treinos" outcome="treinos"/> 
+                <p:menuitem value="Perfil" outcome="atleta/perfil"/>
+                <p:menuitem value="Como funciona?" outcome="sobre"/>
+                <f:facet name="options">
+                    <h:link id="login" outcome="login" value="login" rendered="#{sessionBean.sessionUser == null}"/>                   
+                    <h:outputText id="userAccount" value="#{sessionBean.sessionUser.name}"/>
+                    <p:commandLink id="logout" actionListener="#{sessionBean.logout}" rendered="#{sessionBean.sessionUser != null}">
+                        <h:outputText value="logout" />
+                    </p:commandLink>
+                </f:facet>       
+            </p:menubar>
+        </h:form>
+        <br />
+
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true"/>
+            <p:fieldset legend="Meus Treinos" toggleable="true" toggleSpeed="700" >
+                <p:panel>    
+                    <p:dataTable id="trainingsTable" var="training" value="#{trainingBean.trainings}" editable="true" 
+                                 paginator="true" paginatorPosition="bottom" rows="10" styleClass="centralized">
+
+                        <p:ajax event="rowEdit" listener="#{trainingBean.onRowEdit}" update=":form:msgs" />
+
+                        <p:column headerText="Data" sortBy="#{training.dateTraining}" width="130">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{training.dateTraining}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText value="#{training.dateTraining}" label="Data" style="width:100%">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </p:inputText>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Calorias perdidas" sortBy="#{training.caloriesLost}" width="100">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{training.caloriesLost}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText value="#{training.caloriesLost}" label="Calorias perdidas" style="width:100%"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Tipo" sortBy="#{training.type}" >
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{training.type}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText value="#{training.type}" label="Tipo" style="width:100%"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Avaliação" sortBy="#{training.rating}" width="100">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <p:rating value="#{training.rating}" readonly="true"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:rating value="#{training.rating}"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column> 
+
+                        <p:column width="35">
+                            <p:rowEditor />
+                        </p:column>
+
+                        <p:column width="20">
+                            <p:commandButton action="#{trainingBean.remove()}" icon="ui-icon-trash">
+                                <f:setPropertyActionListener value="#{training}" target="#{trainingBean.selectedTraining}" />
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+                </p:panel>
+            </p:fieldset>
+        </h:form>
+        <br/>
+        <h:form> 
+            <p:fieldset legend="Novo Treino" toggleable="true" toggleSpeed="700" collapsed="false">
+                <p:panel>  
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <h:outputLabel value="Tipo de treino:" for="type" /> 
+                        <p:autoComplete id="type" minQueryLength="1" value="#{trainingBean.type}" completeMethod="#{trainingBean.autoCompleteType}"/>
+                        <h:outputLabel value="Quantidade de calorias perdidas: " for="caloriesLost"/> 
+                        <p:inputText id="caloriesLost" value="#{trainingBean.caloriesLost}" />
+                        <h:outputText value="Data:" />
+                        <p:calendar value="#{trainingBean.dateTraining}" id="dateTraining" pattern="dd/MM/yyyy" maxdate="#{trainingBean.maxDate}" effect="fade" effectDuration="2500"/>
+                        <h:outputText value="Avaliação:" />
+                        <p:rating value="#{trainingBean.rating}" />
+                    </h:panelGrid>
+                    <p:commandButton type="submit" value="Cadastrar" action="#{trainingBean.insertTraining()}" /> 
+                </p:panel>
+            </p:fieldset>
+        </h:form>
+    </h:body>
+
+    <p:panel styleClass="footer">
+        Desenvolvido por <h:outputLink value="http://maikotrindade.github.io/" target="_blank">Maiko Trindade</h:outputLink> 2014
+    </p:panel>
+
+</html>

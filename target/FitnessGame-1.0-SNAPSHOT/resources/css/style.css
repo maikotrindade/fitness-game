@@ -1,0 +1,136 @@
+body {
+    background-color: #259BFF;
+    min-width: 720px; 
+}
+
+#content{
+    padding:10px;
+    padding-bottom:70px;
+}
+
+.footer {
+    text-align: center;
+    height: 35px;
+    bottom: 0;
+    background-color: #fff;
+    margin: 20px auto 5px auto;
+    font-size: 14px;
+}
+
+.small {
+    font-size: 0.8em;
+}
+
+.smallest {
+    font-size: 12px;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.logotipo {
+    margin-right: 15px;
+}
+
+.ui-menuitem a{
+    margin: 6px 12px 0 12px;
+}
+
+.topResults {
+    text-align: center;
+    font-weight: bold;
+    width: 70%;
+    font-size: 48px;
+    margin: 0 auto 0 auto;
+}
+
+.topResults .small {
+    font-size: 20px;
+    display: inline;
+    color: #333;
+}
+
+#topResultsMonth{
+    float:left;
+}
+
+#topResultsWeek{
+    float: right;
+}
+
+.topMonth{
+    font-size: 82px;
+}
+
+.topWeek{
+    font-size: 82px;
+}
+
+.login {
+    float:right;
+}
+
+.centralized {
+    text-align: center;
+    margin: 0 auto 0 auto;
+}
+
+.sobre {
+    width: 650px;
+    font-size: 140%;
+    text-align: center;
+    margin: 20px auto 20px auto;
+}
+
+.profile_panel{
+    margin: 10px auto 80px auto;
+    width:260px;
+    text-align:center;
+}
+
+.profile_panel a{
+    font-size: 13px;
+}
+
+.registerButton {
+    margin: 25px;
+    width: 140px;
+    height: 30px;
+}
+
+.ui-menubar .ui-menubar-options {
+    margin-top: 10px;
+}
+
+.ui-menubar .ui-menubar-options span{
+    font-size: 12px;
+    font-style: italic;
+}
+
+.ui-menubar .ui-menubar-options a{
+    padding: 4px;
+    border-radius: 6px;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.ui-menubar .ui-menubar-options a:hover{
+    background-color: #D5D5D5;
+}
+
+#indexListMonth {
+    width:300px; text-align: left; float:left; font-size:16px; line-height: 20px;
+}
+
+#indexListMonth .ui-widget-content{
+    border:none;
+}
+
+#indexListWeek {
+    width:300px; text-align: right; float:right; font-size:16px; line-height: 20px;
+}
+
+#indexListWeek .ui-widget-content{
+    border:none;
+}

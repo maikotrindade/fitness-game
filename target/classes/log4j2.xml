@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" name="MyLog4j2Configuration">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern=" ⚑ %c{2}.%M %d{HH:mm:ss} %-5level - %msg%n "/>
+        </Console>   
+    </Appenders>  
+    <Loggers>      
+        <Root level="all">
+            <AppenderRef ref="Console"/>
+        </Root>        
+    </Loggers>
+</Configuration>

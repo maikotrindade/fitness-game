@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">    
+    <f:event type="preRenderView" listener="#{indexBean.preRenderView()}" />
+    <h:head>
+        <title>Fitness Game</title>
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <h:form>
+            <p:menubar>
+                <p:menuitem>
+                    <h:link outcome="index">
+                        <h:graphicImage id="logotipo" url="/resources/image/logo.png"/> 
+                    </h:link>
+                </p:menuitem>
+                <p:menuitem value="Treinos" outcome="treinos"/> 
+                <p:menuitem value="Perfil" outcome="atleta/perfil"/>
+                <p:menuitem value="Como funciona?" outcome="sobre"/>
+                <f:facet name="options">
+                    <h:link id="login" outcome="login" value="login" rendered="#{sessionBean.sessionUser == null}"/>                   
+                    <h:outputText id="userAccount" value="#{sessionBean.sessionUser.name}"/>
+                </f:facet> 
+            </p:menubar>
+        </h:form>
+        <br />
+
+        <p:panel styleClass="topResults">
+            <div id="topResultsMonth">
+                <h:outputText class="small" value="Top do mês"/> <br/>
+                <h:outputText class="topMonth" value="#{indexBean.bestMonth.get(0).caloriesLost}"/> 
+                <br/><i>kcal</i><br/>
+                <p class="small">#{indexBean.bestMonth.get(0).athlete.name}</p>
+                <p class="small">#{indexBean.bestMonth.get(0).quantityTrainings} Treino(s)</p>
+            </div>    
+            <div id="topResultsWeek">
+                <h:outputText class="small" value="Top da semana"/> <br/>
+                <h:outputText class="topWeek" value="#{indexBean.bestWeek.get(0).caloriesLost}"/> 
+                <br/><i>kcal</i><br/> 
+                <p class="small">#{indexBean.bestWeek.get(0).athlete.name}</p>
+                <p class="small">#{indexBean.bestWeek.get(0).quantityTrainings} Treino(s)</p>
+            </div>
+            <hr style="clear:both;"/>
+
+            <div id="indexListMonth">
+                <p:dataList value="#{indexBean.bestMonth}" var="bm" type="definition" first="1" rendered="#{true}" style="border:none">
+                    ★ #{bm.athlete.name}  (#{bm.caloriesLost} <i>kcal</i>)
+                </p:dataList>
+            </div> 
+
+            <div id="indexListWeek">
+                <p:dataList value="#{indexBean.bestWeek}" var="bw" type="definition" first="1" style="border: none;">
+                    #{bw.athlete.name}  (#{bw.caloriesLost} <i>kcal</i>) ☆
+                </p:dataList>
+            </div> 
+            <br style="clear:both;"/>
+
+            <a href="https://twitter.com/share" class="twitter-share-button" data-via="maikotrindade" data-lang="pt" data-size="large" data-hashtags="FitnessGame">Tweetar</a>
+            <script>!function(d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                    if (!d.getElementById(id)) {
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = p + '://platform.twitter.com/widgets.js';
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }
+                }(document, 'script', 'twitter-wjs');</script>
+
+
+            <div class="g-plusone" data-annotation="inline" data-width="200"></div>
+            <script type="text/javascript">
+                window.___gcfg = {lang: 'pt-BR'};
+                (function() {
+                    var po = document.createElement('script');
+                    po.type = 'text/javascript';
+                    po.async = true;
+                    po.src = 'https://apis.google.com/js/platform.js';
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(po, s);
+                })();
+            </script>
+
+            <script src="//platform.linkedin.com/in.js" type="text/javascript">
+            </script>
+            <script type="IN/Share" data-counter="right"></script>
+
+        </p:panel>
+    </h:body>
+
+    <p:panel styleClass="footer">
+        Desenvolvido por <h:outputLink value="http://maikotrindade.github.io/" target="_blank">Maiko Trindade</h:outputLink> 2014
+    </p:panel>
+
+</html>
+

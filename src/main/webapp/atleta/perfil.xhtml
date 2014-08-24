@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <f:event type="preRenderView" listener="#{profileBean.preRenderView()}" />
+
+    <h:head>
+        <title>Fitness Game</title>
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <h:form>
+            <p:menubar>
+                <p:menuitem>
+                    <h:link outcome="/index">
+                        <h:graphicImage id="logotipo" url="/resources/image/logo.png"/> 
+                    </h:link>
+                </p:menuitem>
+                <p:menuitem value="Treinos" outcome="/treinos"/> 
+                <p:menuitem value="Perfil" outcome="/atleta/perfil" />
+                <p:menuitem value="Como funciona?" outcome="/sobre" />
+                <f:facet name="options">
+                    <h:link id="login" outcome="login" value="login" rendered="#{sessionBean.sessionUser == null}"/>                   
+                    <h:outputText id="userAccount" value="#{sessionBean.sessionUser.name}"/>
+                    <p:commandLink id="logout" actionListener="#{sessionBean.logout}" rendered="#{sessionBean.sessionUser != null}">
+                        <h:outputText value="logout" />
+                    </p:commandLink>
+                </f:facet> 
+            </p:menubar>
+        </h:form>
+        <br />
+
+        <h:form>
+            <p:panel styleClass="centralized">
+                <p:panelGrid styleClass="centralized" style="margin-top: 90px;">
+                    <p:row>
+                        <p:column rowspan="4">
+                            <h:graphicImage id="user"
+                                            alt="user"
+                                            url="../resources/image/user.png">
+                            </h:graphicImage>
+                        </p:column>
+                        <p:column colspan="4">
+                            <p:outputLabel value="#{profileBean.athlete.name}"/> 
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2"> 
+                            <p:outputLabel value="#{profileBean.athlete.birthday}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </p:outputLabel>
+                        </p:column>
+                        <p:column colspan="2">
+                            <p:outputLabel value="#{profileBean.age} anos"/> 
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="4">
+                            <p:outputLabel value="#{profileBean.athlete.email}"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="4"> 
+                            <p:outputLabel for="registration" value="Data de registro: "/>
+                            <p:outputLabel id="registration" value="#{profileBean.athlete.registration}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </p:outputLabel>
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+                <p:panel styleClass="profile_panel">
+                    <h:link value="Atualizar" outcome="editar" /> |  
+                    <h:commandLink action="#{profileBean.remove()}" value="Deletar esta conta" />
+                </p:panel>
+            </p:panel>
+        </h:form>
+    </h:body>
+
+    <p:panel styleClass="footer">
+        Desenvolvido por <h:outputLink value="http://maikotrindade.github.io/" target="_blank">Maiko Trindade</h:outputLink> 2014
+    </p:panel>
+
+</html>
+
